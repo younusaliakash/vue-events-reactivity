@@ -1,10 +1,35 @@
 <script setup>
 import { ref, reactive } from "vue";
-const accordions = reactive([false, false, false, false]);
+//reactivity
+const activeIndex = ref(0);
+const accordions = reactive([
+  {
+    heading: "What is term?",
+    content:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi dolor dolorum odio, saepe quibusdam iusto possimus nesciunt dolores assumenda quae totam, doloremque odit. Itaque cum animi, labore debitis deserunt iusto!",
+    isOpen: true,
+  },
+  {
+    heading: "When to use Accordion Components?",
+    content:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut suscipit itaque, sequi incidunt ab sit optio debitis dignissimos doloribus ratione nobis id mollitia maiores eveniet necessitatibus dolorum praesentium! Corrupti, at.",
+    isOpen: false,
+  },
+  {
+    heading: "How can it be defined?",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima facilis labore voluptates provident nam, delectus suscipit nihil optio voluptate quae porro fugiat magni excepturi doloribus.",
+    isOpen: false,
+  },
+  {
+    heading: "Chamber reached do he nothing be?",
+    content:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam minima maiores magni dolore qui architecto pariatur incidunt repellat quos hic? Eius, eveniet accusantium! Quisquam, quo. Vitae ipsum ad veritatis commodi quasi expedita!",
+    isOpen: false,
+  },
+]);
 
-function toggle(index) {
-  accordions[index] = !accordions[index];
-}
+// accordions[0].isOpen=true
 </script>
 
 <template>
@@ -27,93 +52,72 @@ function toggle(index) {
           <div class="h-1 w-full mx-auto border-b my-5"></div>
 
           <!-- What is term -->
-          <div class="transition hover:bg-indigo-50">
+          <div
+            class="transition hover:bg-indigo-50"
+            v-for="(accordion, index) in accordions"
+            :key="index"
+          >
             <!-- header -->
             <div
-              @click="toggle(0)"
+              @click="activeIndex = index"
               class="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-16"
             >
-              <i class="fas fa-plus"></i>
-              <h3>What is term?</h3>
+              <i
+                class="fas"
+                :class="index == activeIndex ? 'fa-minus' : 'fa-plus'"
+              ></i>
+              <h3>{{ accordion.heading }}</h3>
             </div>
             <!-- Content -->
-            <div class="px-5 pt-0 text-left pb-5" v-show="accordions[0]">
+            <div class="px-5 pt-0 text-left pb-5" v-show="index == activeIndex">
               <p class="leading-6 font-light pl-9">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi
-                dolor dolorum odio, saepe quibusdam iusto possimus nesciunt
-                dolores assumenda quae totam, doloremque odit. Itaque cum animi,
-                labore debitis deserunt iusto!
+                {{ accordion.content }}
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
 
-          <!-- When to use Accordion Components -->
-          <div class="transition hover:bg-indigo-50">
+    <div
+      class="w-full p-10 bg-gradient-to-br from-pink-50 to-indigo-100 grid place-items-center"
+    >
+      <div class="w-3/4 mx-auto rounded border">
+        <div class="bg-white p-10 shadow-sm">
+          <h3 class="text-lg font-medium text-gray-800">
+            Several Windows stacked on each other
+          </h3>
+          <p class="text-sm font-light text-gray-600 my-3">
+            The accordion is a graphical control element comprising a vertically
+            stacked list of items such as labels or thumbnails
+          </p>
+
+          <div class="h-1 w-full mx-auto border-b my-5"></div>
+
+          <!-- What is term -->
+          <div
+            class="transition hover:bg-indigo-50"
+            v-for="(accordion, index) in accordions"
+            :key="index"
+          >
             <!-- header -->
             <div
-              @click="accordions[1] = !accordions[1]"
+              @click="accordion.isOpen = !accordion.isOpen"
               class="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-16"
             >
-              <i class="fas fa-plus"></i>
-              <h3>When to use Accordion Components?</h3>
+              <i
+                class="fas"
+                :class="accordion.isOpen ? 'fa-minus' : 'fa-plus'"
+              ></i>
+              <h3>{{ accordion.heading }}</h3>
             </div>
             <!-- Content -->
             <div
-              class="accordion-content px-5 pt-0 text-left pb-5"
-              v-show="accordions[1]"
+              class="px-5 pt-0 text-left pb-5"
+              v-show="true == accordion.isOpen"
             >
               <p class="leading-6 font-light pl-9">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
-                suscipit itaque, sequi incidunt ab sit optio debitis dignissimos
-                doloribus ratione nobis id mollitia maiores eveniet
-                necessitatibus dolorum praesentium! Corrupti, at.
-              </p>
-            </div>
-          </div>
-
-          <!-- Accordion Wrapper -->
-          <div class="transition hover:bg-indigo-50">
-            <!-- header -->
-            <div
-              @click="toggle(2)"
-              class="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-16"
-            >
-              <i class="fas fa-plus"></i>
-              <h3>How can it be defined?</h3>
-            </div>
-            <!-- Content -->
-            <div
-              class="accordion-content px-5 pt-0 text-left pb-5"
-              v-show="accordions[2]"
-            >
-              <p class="leading-6 font-light pl-9">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-                facilis labore voluptates provident nam, delectus suscipit nihil
-                optio voluptate quae porro fugiat magni excepturi doloribus.
-              </p>
-            </div>
-          </div>
-
-          <!-- Accordion Wrapper -->
-          <div class="transition hover:bg-indigo-50">
-            <!-- header -->
-            <div
-              @click="toggle(3)"
-              class="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-16"
-            >
-              <i class="fas fa-plus"></i>
-              <h3>Chamber reached do he nothing be?</h3>
-            </div>
-            <!-- Content -->
-            <div
-              class="accordion-content px-5 pt-0 text-left pb-5"
-              v-show="accordions[3]"
-            >
-              <p class="leading-6 font-light pl-9">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam
-                minima maiores magni dolore qui architecto pariatur incidunt
-                repellat quos hic? Eius, eveniet accusantium! Quisquam, quo.
-                Vitae ipsum ad veritatis commodi quasi expedita!
+                {{ accordion.content }}
               </p>
             </div>
           </div>
