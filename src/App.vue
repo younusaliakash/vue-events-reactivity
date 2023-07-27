@@ -1,6 +1,10 @@
 <script setup>
-import { ref } from "vue";
-const accordionIndex = ref(0);
+import { ref, reactive } from "vue";
+const accordions = reactive([false, false, false, false]);
+
+function toggle(index) {
+  accordions[index] = !accordions[index];
+}
 </script>
 
 <template>
@@ -8,9 +12,9 @@ const accordionIndex = ref(0);
     <h1 class="text-center text-2xl py-10">Events & Reactivity in Vue.js</h1>
 
     <div
-      class="p-10 bg-gradient-to-br from-indigo-100 to-indigo-300 grid place-items-center"
+      class="w-full p-10 bg-gradient-to-br from-pink-50 to-indigo-100 grid place-items-center"
     >
-      <div class="w-6/12 mx-auto rounded border">
+      <div class="w-3/4 mx-auto rounded border">
         <div class="bg-white p-10 shadow-sm">
           <h3 class="text-lg font-medium text-gray-800">
             Several Windows stacked on each other
@@ -26,14 +30,14 @@ const accordionIndex = ref(0);
           <div class="transition hover:bg-indigo-50">
             <!-- header -->
             <div
-              @click="accordionIndex = 0"
+              @click="toggle(0)"
               class="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-16"
             >
               <i class="fas fa-plus"></i>
               <h3>What is term?</h3>
             </div>
             <!-- Content -->
-            <div class="px-5 pt-0 text-left pb-5" v-show="accordionIndex == 0">
+            <div class="px-5 pt-0 text-left pb-5" v-show="accordions[0]">
               <p class="leading-6 font-light pl-9">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi
                 dolor dolorum odio, saepe quibusdam iusto possimus nesciunt
@@ -47,7 +51,7 @@ const accordionIndex = ref(0);
           <div class="transition hover:bg-indigo-50">
             <!-- header -->
             <div
-              @click="accordionIndex = 1"
+              @click="accordions[1] = !accordions[1]"
               class="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-16"
             >
               <i class="fas fa-plus"></i>
@@ -56,7 +60,7 @@ const accordionIndex = ref(0);
             <!-- Content -->
             <div
               class="accordion-content px-5 pt-0 text-left pb-5"
-              v-show="accordionIndex == 1"
+              v-show="accordions[1]"
             >
               <p class="leading-6 font-light pl-9">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut
@@ -71,7 +75,7 @@ const accordionIndex = ref(0);
           <div class="transition hover:bg-indigo-50">
             <!-- header -->
             <div
-              @click="accordionIndex = 2"
+              @click="toggle(2)"
               class="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-16"
             >
               <i class="fas fa-plus"></i>
@@ -80,7 +84,7 @@ const accordionIndex = ref(0);
             <!-- Content -->
             <div
               class="accordion-content px-5 pt-0 text-left pb-5"
-              v-show="accordionIndex == 2"
+              v-show="accordions[2]"
             >
               <p class="leading-6 font-light pl-9">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
@@ -94,7 +98,7 @@ const accordionIndex = ref(0);
           <div class="transition hover:bg-indigo-50">
             <!-- header -->
             <div
-              @click="accordionIndex = 3"
+              @click="toggle(3)"
               class="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-16"
             >
               <i class="fas fa-plus"></i>
@@ -103,7 +107,7 @@ const accordionIndex = ref(0);
             <!-- Content -->
             <div
               class="accordion-content px-5 pt-0 text-left pb-5"
-              v-show="accordionIndex == 3"
+              v-show="accordions[3]"
             >
               <p class="leading-6 font-light pl-9">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam
