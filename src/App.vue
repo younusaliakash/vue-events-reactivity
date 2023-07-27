@@ -1,53 +1,50 @@
 <script setup>
-import { ref, reactive } from "vue";
-
-const fullImage = ref(
-  "https://images.unsplash.com/photo-1682685797769-481b48222adf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60"
-);
-const images = [
+import { ref } from "vue";
+const about = ref("Hello");
+const links = [
   {
-    thumb:
-      "https://images.unsplash.com/photo-1682685797769-481b48222adf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=300&q=60",
-    full: "https://images.unsplash.com/photo-1682685797769-481b48222adf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60",
+    name: "Google",
+    url: "https://www.google.com",
+    about:
+      "Google is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.",
   },
   {
-    thumb:
-      "https://images.unsplash.com/photo-1682695794816-7b9da18ed470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=300&q=60",
-    full: "https://images.unsplash.com/photo-1682695794816-7b9da18ed470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60",
+    name: "Microsoft",
+    url: "https://www.microsoft.com",
+    about:
+      "Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington. It develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
   },
   {
-    thumb:
-      "https://images.unsplash.com/photo-1682685797661-9e0c87f59c60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=300&q=60",
-    full: "https://images.unsplash.com/photo-1682685797661-9e0c87f59c60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60",
+    name: "Facebook",
+    url: "https://www.facebook.com",
+    about:
+      "Facebook is an American online social media and social networking service based in Menlo Park, California, and a flagship service of the namesake company Facebook, Inc.",
   },
   {
-    thumb:
-      "https://plus.unsplash.com/premium_photo-1666963323736-5ee1c16ef19d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=300&q=60",
-    full: "https://plus.unsplash.com/premium_photo-1666963323736-5ee1c16ef19d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60",
+    name: "Twitter",
+    url: "https://www.twitter.com",
+    about:
+      "Twitter is an American microblogging and social networking service on which users post and interact with messages known as tweets. Registered users can post, like and retweet tweets, but unregistered users can only read them.",
   },
 ];
 
-function setImage(image) {
-  fullImage.value = image.full;
+function setText(text) {
+  about.value = text;
 }
 </script>
 
 <template>
   <section class="container mx-auto flex items-center flex-col">
-    <h1 class="text-center text-2xl py-10">Events & Reactivity</h1>
-    <div class="">
-      <div class="flex space-x-2">
-        <img
-          @click="setImage(image)"
-          class="cursor-pointer"
-          v-for="image in images"
-          :src="image.thumb"
-          :key="image.thumb"
-        />
-      </div>
-      <div class="mt-10">
-        <img class="cursor-pointer w-full" :src="fullImage" />
-      </div>
+    <h1 class="text-center text-2xl py-10">Events & Reactivity in Vue.js</h1>
+    <h2 class="mt-10">{{ about }}</h2>
+    <div class="container mx-auto flex space-x-5 justify-center m-[1000px]">
+      <a
+        v-for="link in links"
+        :key="link.name"
+        href="#"
+        @click.prevent="setText(link.about)"
+        >{{ link.name }}</a
+      >
     </div>
   </section>
 </template>
